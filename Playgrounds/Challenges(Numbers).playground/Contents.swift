@@ -7,9 +7,17 @@
  */
 
 func challenge1(number: Int, power: Int) -> Int {
-  // yor code goes here...
-  // dont forget override return
-  return 0
+  guard number > 0 && power > 0 else {
+    return -1
+  }
+  func pow(_ base: Int, _ exp: Int) -> Int {
+    if (exp == 1) {
+      return base
+    }
+    let res = pow(base, exp / 2)
+    return power % 2 == 1 ? res * res * number : res * res
+  }
+  return pow(number, power)
 }
 
 assert(challenge1(number: 4, power: 3) == 64, "Challenge 1 failed")
@@ -31,9 +39,14 @@ assert(challenge1(number: 2, power: 8) == 256, "Challenge 1 failed")
  */
 
 func challenge2(number: UInt) -> UInt {
-  // yor code goes here...
-  // dont forget override return
-  return UInt.min
+  var temp = number // А можно как-то по-другому сделать?
+  var res: UInt = 0
+  while (temp > 0){
+    res = res << 1
+    res = res | (temp & 1)
+    temp = temp >> 1
+  }
+  return res
 }
 
 // 32 это 100000 в бинарном представлении, дополним до 8 - 00100000. Отраженная последовательность - 00000100, что представляет собой - 4
@@ -56,9 +69,7 @@ assert(challenge2(number: 4) == 32, "Challenge 2 failed")
  */
 
 func challenge3(subtract: Int, from: Int) -> Int {
-  // yor code goes here...
-  // dont forget override return
-  return 0
+  return from + (~subtract + 1)
 }
 
 assert(challenge3(subtract: 5, from: 9) == 4, "Challenge 3 failed")
