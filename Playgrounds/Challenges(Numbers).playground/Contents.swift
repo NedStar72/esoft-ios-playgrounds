@@ -15,7 +15,7 @@ func challenge1(number: Int, power: Int) -> Int {
       return base
     }
     let res = pow(base, exp / 2)
-    return power % 2 == 1 ? res * res * number : res * res
+    return power % 2 == 1 ? res * res * base : res * res
   }
   return pow(number, power)
 }
@@ -41,7 +41,7 @@ assert(challenge1(number: 2, power: 8) == 256, "Challenge 1 failed")
 func challenge2(number: UInt) -> UInt {
   var temp = number // А можно как-то по-другому сделать?
   var res: UInt = 0
-  while (temp > 0){
+  for _ in 1...8 {
     res = res << 1
     res = res | (temp & 1)
     temp = temp >> 1

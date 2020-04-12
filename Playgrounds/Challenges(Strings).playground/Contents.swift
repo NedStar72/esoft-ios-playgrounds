@@ -63,4 +63,3 @@ func challenge3(input: String) -> String {
 
 assert(challenge3(input: "Swift Coding Challenge") == "tfiwS gnidoC egnellahC", "Challenge 3 failed")
 assert(challenge3(input: "The quick brown fox") == "ehT kciuq nworb xof", "Challenge 3 failed")
-

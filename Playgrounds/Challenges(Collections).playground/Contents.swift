@@ -7,10 +7,15 @@
 
 extension Collection where Iterator.Element == Int {
   func challenge1() -> Double? {
-    
-    // yor code goes here...
-    // dont forget override return
-    return nil
+    guard self.count > 0 else {
+      return nil
+    }
+    // Я не нашел что-то вроде std::advance, но я нашел что-то более ужасное (прекрасное)
+    let middleElems = self.prefix(self.count / 2 + self.count % 2 + 1).suffix(2)
+    if self.count % 2 == 0 {
+      return Double(middleElems.reduce(0, + )) / 2
+    }
+    return Double(middleElems.first!)
   }
 }
 
@@ -33,9 +38,8 @@ assert([Int]().challenge1() == nil, "Challenge 1 failed")
  */
 
 func challenge2(input: [Int]) -> [Int] {
-  // yor code goes here...
-  // dont forget override return
-  return []
+  // Надо ли проверять входной массив на корректность (что в нем числа только из 1...100)?
+  return Array(Set(1...100).subtracting(input)).sorted()
 }
 
 var testArray = Array(1...100)
@@ -43,7 +47,6 @@ testArray.remove(at: 25)
 testArray.remove(at: 20)
 testArray.remove(at: 6)
 assert(challenge2(input: testArray) == [7, 21, 26], "Challenge 2 failed")
-
 
 /*
  3. Recreate map()
@@ -57,8 +60,16 @@ assert(challenge2(input: testArray) == [7, 21, 26], "Challenge 2 failed")
  Hint #4: Стоит использовать rethrows, чтобы не раздражать пользователей, которые используют non-throwing функции
  */
 
+extension Collection {
+  func challenge3<T>(_ transform: (Element) throws -> T) rethrows -> [T] {
+    var newCollection = [T]()
+    for Element in self {
+        try newCollection.append(transform(Element))
+    }
+    return newCollection
+  }
+}
+
 // расскомментируйте aasert когда напишите метод challenge3
-// assert([1, 2, 3].challenge3 { String($0) } == ["1", "2", "3"], "Challenge 3 failed")
-// assert(["1", "2", "3"].challenge3 { Int($0)! } == [1, 2, 3], "Challenge 3 failed")
-
-
+assert([1, 2, 3].challenge3 { String($0) } == ["1", "2", "3"], "Challenge 3 failed")
+assert(["1", "2", "3"].challenge3 { Int($0)! } == [1, 2, 3], "Challenge 3 failed")
