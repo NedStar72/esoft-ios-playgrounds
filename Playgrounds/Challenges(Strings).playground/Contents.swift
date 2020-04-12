@@ -10,9 +10,13 @@
  */
 
 func challenge1(input: String) -> Bool {
-  // yor code goes here...
-  // dont forget override return
-  return false
+  var charSet = Set<Character>()
+  for char in input {
+    guard charSet.insert(char).inserted else {
+      return false
+    }
+  }
+  return true
 }
 assert(challenge1(input: "No duplicates") == true, "Challenge 1 failed")
 assert(challenge1(input: "abcdefghijklmnopqrstuvwxyz") == true, "Challenge 1 failed")
@@ -32,9 +36,7 @@ assert(challenge1(input: "Hello, world") == false, "Challenge 1 failed")
  */
 
 func challenge2(input: String, count: Character) -> Int {
-  // yor code goes here...
-  // dont forget override return
-  return 0
+  return input.reduce(0, { $1 == count ? $0 + 1 : $0 })
 }
 
 assert(challenge2(input: "The rain in Spain", count: "a") == 2, "Challenge 2 failed")
@@ -53,9 +55,10 @@ assert(challenge2(input: "Mississippi", count: "i") == 4, "Challenge 2 failed")
 */
 
 func challenge3(input: String) -> String {
-  // yor code goes here...
-  // dont forget override return
-  return ""
+  return String(input
+    .split(separator: " ")
+    .map { $0.reversed() }
+    .joined(separator: " "))
 }
 
 assert(challenge3(input: "Swift Coding Challenge") == "tfiwS gnidoC egnellahC", "Challenge 3 failed")
